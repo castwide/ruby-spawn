@@ -8,7 +8,7 @@ import { platform } from 'os';
 
 suite('rubySpawn', () => {
     it('spawns a Ruby process', (done) => {
-		let script = path.resolve('.', 'fixtures', 'script.rb');
+		let script = path.resolve('.', 'fixtures', 'cwd.rb');
 		let child = rubySpawn('ruby', [script]);
 		child.on('close', (code) => {
 			expect(code).to.equal(0);
@@ -45,15 +45,18 @@ suite('rubySpawn', () => {
 	});
 
 	if (platform().match(/darwin|linux/)) {
-
-		it('spawns a Ruby process', (done) => {
-			let script = path.resolve('.', 'fixtures', 'script.rb');
-			let child = rubySpawn('ruby', [script]);
-			child.on('close', (code) => {
-				expect(code).to.equal(0);
+		it('works with .ruby-version', (done) => {
+			let script = path.resolve('.', 'fixtures', 'version.rb');
+			let dir = path.resolve('.', 'fixtures', 'ruby-2.0.0');
+			let child = rubySpawn('ruby', [script], { cwd: dir });
+			let out = '';
+			child.stdout.on('data', (buffer) => {
+				out = out + buffer.toString();
+			});
+			child.stdout.on('close', () => {
+				expect(out).to.match(/2\.0\.0$/);
 				done();
 			});
 		});
-
 	}
 });

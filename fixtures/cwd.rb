@@ -1,1 +1,1 @@
-STDOUT.print Dir.pwd
+print Dir.pwd
