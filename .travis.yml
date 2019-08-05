@@ -11,4 +11,5 @@ matrix:
 before_script:
 - rvm install ruby-2.4.6
 - npm install -g typescript
+- npm install
 script: npm run test
