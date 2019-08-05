@@ -15,7 +15,7 @@ Import the function:
 const rubySpawn = require('ruby-spawn');
 
 // TypeScript
-import { RubySpawn } from 'ruby-spawn';
+import { rubySpawn } from 'ruby-spawn';
 ```
 
 Examples:
