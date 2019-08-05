@@ -9,5 +9,5 @@ matrix:
     - rvm: 2.6
       os: osx
 before_script:
-- .rvm install ruby-2.4.6
+- rvm install ruby-2.4.6
 script: npm run test
