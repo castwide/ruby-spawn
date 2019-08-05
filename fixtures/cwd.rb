@@ -1,0 +1,1 @@
+STDOUT.print Dir.pwd

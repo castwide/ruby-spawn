@@ -4,12 +4,12 @@ import { ChildProcess } from 'child_process';
 const crossSpawn = require('cross-spawn');
 const shellEscape = require('shell-escape');
 
-export function rubySpawn(command, args, opts = {}): ChildProcess {
+export function rubySpawn(command: string, args: string[], opts = {}): ChildProcess {
 	let cmd = [command].concat(args);
 	if (platform().match(/darwin|linux/)) {
 		// OSX and Linux need to use an explicit login shell in order to find
-		// the correct Ruby environment through installation managers like rvm
-		// and rbenv.
+		// the correct Ruby environment through version managers like rvm and
+		// rbenv.
 		let shell = process.env.SHELL;
 		if (!shell) {
 			shell = '/bin/bash';
@@ -21,11 +21,7 @@ export function rubySpawn(command, args, opts = {}): ChildProcess {
 			}
 			let shellArgs = [shellCmd];
 			shellArgs.unshift('-c');
-			if (shell.endsWith('zsh')) {
-				shellArgs.unshift('-l');
-			} else {
-				shellArgs.unshift('-l');
-			}
+			shellArgs.unshift('-l');
 			return child_process.spawn(shell, shellArgs, opts);
 		} else {
 			return crossSpawn(cmd.shift(), cmd, opts);
