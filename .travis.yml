@@ -1,0 +1,17 @@
+language: ruby
+rvm:
+  - 2.5
+  - 2.6
+matrix:
+  include:
+    - rvm: 2.5
+      os: osx
+    - rvm: 2.6
+      os: osx
+# Update RubyGems and Bundler due to error with Bundler 1.16.1 and RubyGems 2.7.3
+# See https://github.com/travis-ci/travis-ci/issues/8978
+before_install:
+- .rvm install ruby-2.4.6
+- bundle install
+before_script: yard gems
+script: rspec

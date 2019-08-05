@@ -47,14 +47,14 @@ suite('rubySpawn', () => {
 	if (platform().match(/darwin|linux/)) {
 		it('works with .ruby-version', (done) => {
 			let script = path.resolve('.', 'fixtures', 'version.rb');
-			let dir = path.resolve('.', 'fixtures', 'ruby-2.0.0');
+			let dir = path.resolve('.', 'fixtures', 'change');
 			let child = rubySpawn('ruby', [script], { cwd: dir });
 			let out = '';
 			child.stdout.on('data', (buffer) => {
 				out = out + buffer.toString();
 			});
 			child.stdout.on('close', () => {
-				expect(out).to.match(/2\.0\.0$/);
+				expect(out).to.match(/2\.4\.6$/);
 				done();
 			});
 		});
