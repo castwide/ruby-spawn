@@ -10,4 +10,5 @@ matrix:
       os: osx
 before_script:
 - rvm install ruby-2.4.6
+- npm install -g typescript
 script: npm run test
