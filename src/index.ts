@@ -3,8 +3,17 @@ import * as child_process from 'child_process';
 import { ChildProcess } from 'child_process';
 const crossSpawn = require('cross-spawn');
 const shellEscape = require('shell-escape');
+const psTree = require('ps-tree');
 
-export function rubySpawn(command: string, args: string[], opts = {}): ChildProcess {
+let killChildren = function (pid: Number, signal: string) {
+	psTree(pid, function (err, children) {
+		children.forEach((c) => {
+			process.kill(c, signal);
+		});
+	});
+}
+
+export function rubySpawn (command: string, args: string[], opts = {}): ChildProcess {
 	let cmd = [command].concat(args);
 	if (platform().match(/darwin|linux/)) {
 		// OSX and Linux need to use an explicit login shell in order to find
@@ -22,7 +31,11 @@ export function rubySpawn(command: string, args: string[], opts = {}): ChildProc
 			let shellArgs = [shellCmd];
 			shellArgs.unshift('-c');
 			shellArgs.unshift('-l');
-			return child_process.spawn(shell, shellArgs, opts);
+			let child = child_process.spawn(shell, shellArgs, opts);
+			child.on('exit', (code, signal) => {
+				killChildren(child.pid, signal);
+			});
+			return child;
 		} else {
 			return crossSpawn(cmd.shift(), cmd, opts);
 		}
