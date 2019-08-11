@@ -33,3 +33,13 @@ rubySpawn('bundle', ['install'], { cwd: '/path/to/directory' });
 // Run RSpec in a different directory
 rubySpawn('rspec', ['/path/to/directory'], { cwd: '/path/to/directory' });
 ```
+
+## Force Killing Processes
+
+If you need to kill processes programmatically, you might need to set the optional `forceKill` option:
+
+```
+let child = rubySpawn('ruby', ['long-running-script.rb'], { cwd: '/path/to/directory', }, true);
+```
+
+Then, when you call `child.kill()`, ruby-spawn will kill processes that it identifies as orphans of `child`.

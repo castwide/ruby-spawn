@@ -1,3 +1,6 @@
+## 1.2.0 - August 11, 2019
+- Force kill option
+
 ## 1.1.0 - August 10, 2019
 - Send kill signals to subprocesses
 

@@ -1,6 +1,6 @@
 {
   "name": "ruby-spawn",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A cross-platform function for spawning Ruby processes",
   "main": "out/index.js",
   "typings": "out/index",
@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "cross-spawn": "^6.0.3",
-    "ps-tree": "1.2.0",
     "shell-escape": "^0.2.0"
   }
 }
