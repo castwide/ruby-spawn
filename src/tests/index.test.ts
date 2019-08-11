@@ -46,6 +46,7 @@ suite('rubySpawn', () => {
 
 	if (platform().match(/darwin|linux/)) {
 		it('works with .ruby-version', (done) => {
+			// This test assumes that Ruby 2.4.6 is available via rvm/rbenv
 			let script = path.resolve('.', 'fixtures', 'version.rb');
 			let dir = path.resolve('.', 'fixtures', 'change');
 			let child = rubySpawn('ruby', [script], { cwd: dir });
