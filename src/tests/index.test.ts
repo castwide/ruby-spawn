@@ -7,7 +7,7 @@ import * as path from 'path';
 import { platform } from 'os';
 
 suite('rubySpawn', () => {
-    it('spawns a Ruby process', (done) => {
+    test('spawns a Ruby process', (done) => {
         let script = path.resolve('.', 'fixtures', 'cwd.rb');
         let child = rubySpawn('ruby', [script]);
         child.on('close', (code) => {
@@ -16,7 +16,7 @@ suite('rubySpawn', () => {
         });
     });
 
-    it('sets the current directory', (done) => {
+    test('sets the current directory', (done) => {
         let script = path.resolve('.', 'fixtures', 'cwd.rb');
         let dir = path.resolve('.', 'fixtures');
         let child = rubySpawn('ruby', [script], { cwd: dir });
@@ -30,7 +30,7 @@ suite('rubySpawn', () => {
         });
     });
 
-    it('sets a foreign directory', (done) => {
+    test('sets a foreign directory', (done) => {
         let script = path.resolve('.', 'fixtures', 'cwd.rb');
         let dir = path.resolve('.');
         let child = rubySpawn('ruby', [script], { cwd: dir });
@@ -45,7 +45,7 @@ suite('rubySpawn', () => {
     });
 
     if (platform().match(/darwin|linux/)) {
-        it('works with .ruby-version', (done) => {
+        test('works with .ruby-version', (done) => {
             // This test assumes that Ruby 2.4.6 is available via rvm/rbenv
             let script = path.resolve('.', 'fixtures', 'version.rb');
             let dir = path.resolve('.', 'fixtures', 'change');
@@ -60,7 +60,7 @@ suite('rubySpawn', () => {
             });
         });
 
-        it('uses the specified shell', (done) => {
+        test('uses the specified shell', (done) => {
             let script = path.resolve('.', 'fixtures', 'shell.rb');
             let child = rubySpawn('ruby', [script], { shell: '/bin/sh' });
             child.stdout.on('close', () => {
