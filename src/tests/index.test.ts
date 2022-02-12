@@ -58,6 +58,20 @@ suite('rubySpawn', () => {
 				expect(out).to.match(/2\.4\.6$/);
 				done();
 			});
-		});
+        });
+        
+        it('uses the specified shell', (done) => {
+			let script = path.resolve('.', 'fixtures', 'shell.rb');
+			let child = rubySpawn('ruby', [script], { shell: '/bin/sh' });
+			let out = '';
+			child.stdout.on('data', (buffer) => {
+				out = out + buffer.toString();
+			});
+            child.stdout.on('close', () => {
+                console.log(out);
+				expect(out).to.equal('/bin/sh');
+				done();
+			});
+        });
 	}
 });

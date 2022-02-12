@@ -31,7 +31,7 @@ export function rubySpawn(command: string, args: string[], opts = {}, forceKill 
 		// OSX and Linux need to use an explicit login shell in order to find
 		// the correct Ruby environment through version managers like rvm and
 		// rbenv.
-		let shell = process.env.SHELL;
+		let shell = opts['shell'] === true ? process.env.SHELL : opts['shell'] || process.env.SHELL;
 		if (!shell) {
 			shell = '/bin/bash';
 		}
@@ -46,7 +46,7 @@ export function rubySpawn(command: string, args: string[], opts = {}, forceKill 
 			shellArgs.unshift('-l');
 			let child = child_process.spawn(shell, shellArgs, opts);
 			if (forceKill) {
-				child.on('exit', (code, signal) => {
+				child.on('exit', (_code, _signal) => {
 					kill(child, ['ruby', command].concat(args).join(' '));
 				});
 			}
