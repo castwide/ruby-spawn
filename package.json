@@ -28,7 +28,7 @@
     "typescript": "^2.4.1"
   },
   "dependencies": {
-    "cross-spawn": "^6.0.3",
+    "cross-spawn": "^7.0.3",
     "shell-escape": "^0.2.0"
   }
 }
